@@ -16,6 +16,10 @@ describe("deposit", function() {
     expect(balance).toEqual(1000.00)
   });
 
-  it("should ")
+  it("should be able to update the balance correctly", function () {
+     deposit("10/01/2012", 1000.00);
+     deposit("13/01/2012", 2000.00);
+     expect(balance).toEqual(3000.00)
+   });
 
 })
