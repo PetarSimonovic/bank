@@ -42,8 +42,12 @@ date || credit || debit || balance
    - Increases Balance by amount.
    - date, amount, credit and balance are added to Account
 
-### Considerations and edge cases
+### Considerations
 
 - Deposit and Withdrawal could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments then assigns a "credit" or "debit" status respectively. This could streamline the code base as it would require only one function rather than two. However, "Deposit" and "Withdrawal" are functions with unique names and specific actions, thereby avoiding potential ambiguity that could arise from the more-generic "Transaction" from a user perspective.
+
+- Handling of decimal values, including addition and subtraction, is not straightforward because javascript's  floating point numbers are unable to represent some decimals with complete accuracy. This solution multiples values by 100 then returns the decimal when outputting the balance as a string
+
+### Edge cases
 
 - users could add the date or amount in an incorrect format or use values that are neither valid dates nor monetary amounts
