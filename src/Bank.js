@@ -8,6 +8,7 @@ let statement_header = "date || credit || debit || balance\n"
 // Functions
 
 function deposit(date, amount) {
+  checkInputs();
   let newBalance = (balance * 100)  + (amount * 100)
   balance = addDecimal(newBalance)
   account.unshift([date, amount.toFixed(2), "", balance])
@@ -15,6 +16,7 @@ function deposit(date, amount) {
 
 
 function withdrawal(date, amount) {
+  checkInputs()
   let newBalance = (balance * 100) - (amount * 100)
   balance = addDecimal(newBalance)
   account.unshift([date, "", amount.toFixed(2), balance])

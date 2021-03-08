@@ -23,6 +23,22 @@ date || credit || debit || balance
 13/01/2012 || 2000.00 || || 3000.00
 10/01/2012 || 1000.00 || || 1000.00
 ```
+
+### Instructions and functions
+
+**deposit("DD/MM/YYYY", XXXX.XX)**
+
+- to make a deposit provide a date in a string format and a monetary amount, including decimals but not including the currency.
+
+**withdrawal("DD/MM/YYYY", XXXX.XX)**
+
+- to make a withdrawal provide a date in a string format and a monetary amount, including decimals but not including the currency.
+
+**printStatement**
+
+- printStatement will print out a list of transactions in reverse-date order (ie starting with the most recent).
+
+
 ### Structure and Design
 
 1. **Account** array:  
