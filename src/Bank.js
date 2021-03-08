@@ -5,23 +5,23 @@ let account = []
 let ledger = []
 let statement_header = "date || credit || debit || balance\n"
 
-// functions
+// Functions
 
 function deposit(date, amount) {
   let newBalance = (balance * 100)  + (amount * 100)
   balance = addDecimal(newBalance)
-  account.push([date, amount.toFixed(2), "", balance])
+  account.unshift([date, amount.toFixed(2), "", balance])
 };
-
-function addDecimal(newBalance) {
-  return (newBalance / 100).toFixed(2);
-}
 
 
 function withdrawal(date, amount) {
   let newBalance = (balance * 100) - (amount * 100)
   balance = addDecimal(newBalance)
-  account.push([date, "", amount.toFixed(2), balance])
+  account.unshift([date, "", amount.toFixed(2), balance])
+}
+
+function addDecimal(newBalance) {
+  return (newBalance / 100).toFixed(2);
 }
 
 function printStatement() {

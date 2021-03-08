@@ -61,9 +61,9 @@ describe ("statement", function() {
     deposit("10/01/2012", 1000.00);
     deposit("13/01/2012", 2000.00);
     withdrawal("14/01/2012", 500.00);
-    expect(account[0]).toEqual(["10/01/2012", "1000.00", "",  "1000.00" ]);
+    expect(account[2]).toEqual(["10/01/2012", "1000.00", "",  "1000.00" ]);
     expect(account[1]).toEqual(["13/01/2012", "2000.00", "",  "3000.00" ]);
-    expect(account[2]).toEqual(["14/01/2012", "", "500.00",  "2500.00" ]);
+    expect(account[0]).toEqual(["14/01/2012", "", "500.00",  "2500.00" ]);
   });
 
   it("generates a statement entry in the correct deposit format", function() {
@@ -77,5 +77,13 @@ describe ("statement", function() {
     printStatement();
     expect(statement).toEqual("date || credit || debit || balance\n14/01/2012 || || 500.00 || -500.00")
   });
+
+  it("generates a complete statement in the correct format", function() {
+    deposit("10/01/2012", 1000.00);
+    deposit("13/01/2012", 2000.00);
+    withdrawal("14/01/2012", 500.00);
+    printStatement();
+    expect(statement).toEqual("date || credit || debit || balance\n14/01/2012 || || 500.00 || 2500.00\n13/01/2012 || 2000.00 || || 3000.00\n10/01/2012 || 1000.00 || || 1000.00")
+  })
 
 })
