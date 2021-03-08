@@ -39,7 +39,7 @@ date || credit || debit || balance
 - printStatement will print out a list of transactions in reverse-date order (ie starting with the most recent).
 
 
-### Structure and Design
+### Structure and design
 
 1. **Account** array:  
     - Stores details of transaction activity.
