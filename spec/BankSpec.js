@@ -2,6 +2,7 @@
   afterEach(function () {
     balance = 0
     account = []
+    ledger = []
   });
 
 describe("deposit", function() {
@@ -23,6 +24,12 @@ describe("deposit", function() {
      expect(balance).toEqual("3000.00")
    });
 
+  it("can add decimals correctly and return the balance in the correct format", function () {
+    deposit("10/01/2012", 1000.32);
+    deposit("10/01/2012", 985.64);
+    expect(balance).toEqual("1985.96");
+  })
+
  })
 
 describe("withdrawal", function() {
@@ -38,6 +45,13 @@ describe("withdrawal", function() {
     expect(balance).toEqual("-500.00");
     expect(account[0]).toEqual(["14/01/2012", "", "500.00",  "-500.00" ]);
   });
+
+  it("can subtract decimals correctly and return the balance in the correct format", function () {
+    deposit("10/01/2012", 1567.23);
+    withdrawal("10/01/2012", 625.12);
+    withdrawal("10/01/2012", 87.23);
+    expect(balance).toEqual("854.88");
+  })
 
 })
 
@@ -56,6 +70,12 @@ describe ("statement", function() {
     deposit("10/01/2012", 1000.00);
     printStatement();
     expect(statement).toEqual("date || credit || debit || balance\n10/01/2012 || 1000.00 || || 1000.00")
+  });
+
+  it("generates a statement entry in the correct withdrawal format", function() {
+    withdrawal("14/01/2012", 500.00);
+    printStatement();
+    expect(statement).toEqual("date || credit || debit || balance\n14/01/2012 || || 500.00 || -500.00")
   });
 
 })
