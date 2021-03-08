@@ -1,5 +1,10 @@
-describe("Bank", function() {
-  var bank;
+describe("deposit", function() {
+
+  afterEach(function () {
+    balance = 0
+    account = []
+  });
+
 
   it("should be able to accept a deposit", function() {
     deposit("10/01/2012", 1000.00);
@@ -7,9 +12,10 @@ describe("Bank", function() {
   });
 
   it("should have a balance", function () {
-    account = []
     deposit("10/01/2012", 1000.00);
     expect(balance).toEqual(1000.00)
   });
+
+  it("should ")
 
 })
