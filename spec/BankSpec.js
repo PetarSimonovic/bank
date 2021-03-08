@@ -6,20 +6,26 @@ describe("deposit", function() {
   });
 
 
-  it("should be able to accept a deposit", function() {
+  it("can accept a deposit", function() {
     deposit("10/01/2012", 1000.00);
     expect(account[0]).toEqual(["10/01/2012", "||", 1000.00,  1000.00 ]);
   });
 
-  it("should have a balance", function () {
+  it("has a balance", function () {
     deposit("10/01/2012", 1000.00);
     expect(balance).toEqual(1000.00)
   });
 
-  it("should be able to update the balance correctly", function () {
+  it("can increase the balance correctly", function () {
      deposit("10/01/2012", 1000.00);
      deposit("13/01/2012", 2000.00);
      expect(balance).toEqual(3000.00)
    });
+
+   it("can process a withdrawal", function () {
+      withdrawal("14/01/2012", 500.00);
+      expect(balance).toEqual(-500.00)
+    });
+
 
 })
