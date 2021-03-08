@@ -24,7 +24,7 @@ date || credit || debit || balance
 10/01/2012 || 1000.00 || || 1000.00
 ```
 
-### Instructions and functions
+### Instructions
 
 **deposit("DD/MM/YYYY", XXXX.XX)**
 
@@ -36,7 +36,7 @@ date || credit || debit || balance
 
 **printStatement**
 
-- printStatement will print out a list of transactions in reverse-date order (ie starting with the most recent).
+- printStatement will print out a list of transactions in reverse chronological order.
 
 
 ### Structure and design
