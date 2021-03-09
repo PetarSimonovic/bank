@@ -36,6 +36,15 @@ describe ("Bank", function () {
       expect(bank.balance).toEqual("1985.96");
     });
 
+    it("can add and subtract decimals correctly and return the balance in the correct format", function () {
+      bank.deposit("10/01/2012", 854.88);
+      bank.deposit("10/01/2012", 95.23);
+      bank.withdrawal("10/01/2012", 105.26);
+      bank.deposit("10/01/2012", 145.12);
+      bank.withdrawal("10/01/2012", 5.00);
+      expect(bank.balance).toEqual("984.97");
+    });
+
   })
 
 describe("withdrawal", function() {

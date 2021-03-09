@@ -1,7 +1,6 @@
 # Bank tech test
 
 
-
 ### Requirements
 
 * Interact with your code via a REPL like IRB or the JavaScript console. (You don't need to implement a command line interface that takes input from STDIN.)
@@ -28,7 +27,7 @@ date || credit || debit || balance
 
 - run ```npm install``` in the command line to install dependencies
 
-- run ```npm test``` to execute tests and generate coverage details
+- run ```npm test``` to execute tests and generate test coverage details.
 
 - The app functions in the console. It has no HTML interface.
 
@@ -36,57 +35,65 @@ date || credit || debit || balance
 
 1. bank = new Bank()
 
-**deposit("DD/MM/YYYY", XXXX.XX)**
+**deposits and withdrawal**
 
-To make a deposit provide a date in a string format and a monetary amount, including decimals but not including the currency.
+To make a deposit or withdrawal, provide a date (as a string in DD/MM/YYYY format) and a numerical value with two decimal places. Do not include a currency symbol or currency code.
 
-```
+```js
 bank.deposit("31/12/2020", 1000.00)
-```
 
-**withdrawal("DD/MM/YYYY", XXXX.XX)**
-
-To make a withdrawal provide a date in a string format and a monetary amount, including decimals but not including the currency.
-
-```
 bank.withdrawal("31/12/2020", 1000.00)
 ```
 
 
 **statement**
 
-- statement will print out a list of transactions in reverse chronological order.
+Use statement to print out a list of transactions in reverse chronological order, formatted in line with the brief's requirements.
 
-```
+```js
 bank.statement
 ```
 
 ### Structure and design
 
 1. **Account** array:  
-    - Stores details of transaction activity.
-    - Each transaction has a date, a type (credit or debit) and balance
+    - Stores details of transaction activity as a string.
+    - Each transaction has a date, an amount and a balance. It's formatting indicates whether it is a deposit or withdrawal.
 
 2. **Balance** variable:
-   - Stores the account holder's balance
+   - Stores the account holder's balance as a numerical value with two decimal places.
 
 3. **Withdrawal** function:
    - Accepts two arguments: date and amount
    - Reduces Balance by amount
-   - date, amount debit and balance are added to Account
+   - Date, amount and balance are added to Account
 
 4. **Deposit** function:
    - Accepts two arguments: date and amount
    - Increases Balance by amount.
-   - date, amount, credit and balance are added to Account
+   - date, amount and balance are added to Account
+
+5. **Statement** function:
+  - Generates and returns a statement in line with given format.
 
 ### Considerations
 
-- Deposit and Withdrawal could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments then assigns a "credit" or "debit" status respectively. This could streamline the code base as it would require only one function rather than two. However, "Deposit" and "Withdrawal" are functions with unique names and specific actions, thereby avoiding potential ambiguity that could arise from the more-generic "Transaction" from a user perspective.
 
-- Handling of decimal values, including addition and subtraction, is not straightforward because javascript's  floating point numbers are unable to represent some decimals with complete accuracy. This solution multiples values by 100 then returns the decimal when outputting the balance as a string
+**Refactoring deposit and withdrawal**
 
-- The solution stores details of debits and credits as formatted strings within an array. This meets the acceptance criteria but could make it difficult to extract this information for other use cases.
+Deposit and Withdrawal could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments then assigns a "credit" or "debit" status respectively.
+
+This could streamline the code base, reducing the number of functions.
+
+However, this solution retains "Deposit" and "Withdrawal" as separate functions with unique names and specific actions, thereby avoiding potential ambiguity among users that could arise a more-generic "Transaction" function.
+
+**Decimals**
+
+Javascript's removal of trailing zeroes following a decimal raises a number of challenges. The zeroes can be retained using ```toFixed(2)```, converting the number into a string. However, this approach then prevents accurate addition and subtraction using that converted sum.
+
+The solution here is twofold:
+  - to update the balance, decimals are removed by multiplying values by 100 to preserve trailing zeroes.
+  - decimals are reinstated to add the balance as a string to the account.  
 
 ### Edge cases
 
