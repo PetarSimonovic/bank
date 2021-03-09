@@ -4,6 +4,7 @@ class Bank {
     this.account = []
     this.statementHeader = 'date || credit || debit || balance\n'
     this.newBalance = 0
+    this.newStatement = ''
   };
 
   deposit (date, amount) {
@@ -23,6 +24,7 @@ class Bank {
   }
 
   statement () {
-    return this.statementHeader.concat(this.account.join('\n'))
+    this.newStatement = this.statementHeader.concat(this.account.join('\n'))
+    return this.newStatement
   }
 }
