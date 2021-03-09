@@ -86,14 +86,16 @@ bank.statement
 
 - Handling of decimal values, including addition and subtraction, is not straightforward because javascript's  floating point numbers are unable to represent some decimals with complete accuracy. This solution multiples values by 100 then returns the decimal when outputting the balance as a string
 
+- The solution stores details of debits and credits as formatted strings within an array. This meets the acceptance criteria but could make it difficult to extract this information for other use cases.
+
 ### Edge cases
 
-- Bank does not check whether dates or monetary values are entered in the correct format
+- Bank does not check whether dates or monetary values are entered in the correct format.
 
 ### Tech stack
 
-- written in javascript
+- Written in javascript
 
-- testing  in Jasmine and Karma
+- Testing in Jasmine and Karma
 
 - linting in ESlint
