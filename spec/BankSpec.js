@@ -16,7 +16,7 @@ describe ("Bank", function () {
 
     it("can accept a deposit", function() {
       bank.deposit("10/01/2012", 1000.00);
-      expect(bank.account[0]).toEqual(["10/01/2012", "1000.00", "",  "1000.00" ]);
+      expect(bank.account[0]).toEqual('10/01/2012 || 1000.00 || || 1000.00');
     });
 
     it("has a balance", function () {
@@ -49,7 +49,7 @@ describe("withdrawal", function() {
   it("can add a withdrawal to the statement", function () {
     bank.withdrawal("14/01/2012", 500.00);
     expect(bank.balance).toEqual("-500.00");
-    expect(bank.account[0]).toEqual(["14/01/2012", "", "500.00",  "-500.00" ]);
+    expect(bank.account[0]).toEqual("14/01/2012 || || 500.00 || -500.00");
   });
 
   it("can subtract decimals correctly and return the balance in the correct format", function () {
@@ -67,9 +67,9 @@ describe ("statement", function() {
     bank.deposit("10/01/2012", 1000.00);
     bank.deposit("13/01/2012", 2000.00);
     bank.withdrawal("14/01/2012", 500.00);
-    expect(bank.account[2]).toEqual(["10/01/2012", "1000.00", "",  "1000.00"]);
-    expect(bank.account[1]).toEqual(["13/01/2012", "2000.00", "",  "3000.00"]);
-    expect(bank.account[0]).toEqual(["14/01/2012", "", "500.00",  "2500.00"]);
+    expect(bank.account[2]).toEqual("10/01/2012 || 1000.00 || || 1000.00");
+    expect(bank.account[1]).toEqual("13/01/2012 || 2000.00 || || 3000.00");
+    expect(bank.account[0]).toEqual("14/01/2012 || || 500.00 || 2500.00");
   });
 
   it("generates a statement entry in the correct deposit format", function() {

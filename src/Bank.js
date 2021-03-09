@@ -10,13 +10,13 @@ class Bank {
   deposit (date, amount) {
     this.newBalance = (this.balance * 100) + (amount * 100)
     this.balance = this.addDecimal(this.newBalance)
-    this.account.unshift([date, amount.toFixed(2), '', this.balance])
+    this.account.unshift(`${date} || ${amount.toFixed(2)} || || ${this.balance}`)
   };
 
   withdrawal (date, amount) {
     this.newBalance = (this.balance * 100) - (amount * 100)
     this.balance = this.addDecimal(this.newBalance)
-    this.account.unshift([date, '', amount.toFixed(2), this.balance])
+    this.account.unshift(`${date} || || ${amount.toFixed(2)} || ${this.balance}`)
   }
 
   addDecimal (newBalance) {
@@ -24,12 +24,6 @@ class Bank {
   }
 
   statement () {
-    let index = 0
-    let ledger = []
-    for (index = 0; index < this.account.length; index++) {
-      ledger.push(this.account[index].join(' || ').replace('  ', ' '))
-    };
-    this.completeStatement = this.statementHeader.concat(ledger.join('\n'))
-    return this.completeStatement
+    return this.statementHeader.concat(this.account.join('\n'))
   }
 }
