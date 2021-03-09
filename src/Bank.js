@@ -2,7 +2,6 @@ class Bank {
   constructor () {
     this.balance = 0
     this.account = []
-    this.statementHeader = 'date || credit || debit || balance\n'
     this.newBalance = 0
   };
 
@@ -23,6 +22,8 @@ class Bank {
   }
 
   statement () {
-    this.statementHeader.concat(this.account.join('\n'))
+    let statement = new Statement(this.account)
+    statement.print
   }
+
 }

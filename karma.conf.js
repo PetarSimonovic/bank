@@ -4,10 +4,14 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
         files: [
             'src/Bank.js',
-            'spec/BankSpec.js'
+            'src/Statement.js',
+            'spec/BankSpec.js',
+            'spec/StatemenntSpec.js'
+
         ],
         preprocessors: {
             'src/Bank.js': ['coverage']
+            'src/Statement.js': ['coverage']
         },
         plugins: [
             'karma-jasmine',
