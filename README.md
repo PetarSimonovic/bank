@@ -26,6 +26,14 @@ date || credit || debit || balance
 
 ### Instructions
 
+- run ```npm install``` in the command line to install dependencies
+
+- run ```npm test``` to execute tests and generate coverage details
+
+- The app functions in the console. It has no HTML interface.
+
+### Instructions
+
 **deposit("DD/MM/YYYY", XXXX.XX)**
 
 - to make a deposit provide a date in a string format and a monetary amount, including decimals but not including the currency.
@@ -67,3 +75,9 @@ date || credit || debit || balance
 ### Edge cases
 
 - users could add the date or amount in an incorrect format or use values that are neither valid dates nor monetary amounts
+
+### Tech stack
+
+- written in javascript
+
+- tests written in Jasmine, with coverage in Karma
