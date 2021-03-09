@@ -19,10 +19,16 @@ describe ("Bank", function () {
       expect(bank.account[0]).toEqual('10/01/2012 || 1000.00 || || 1000.00');
     });
 
-    it("has a balance", function () {
+    it("has a balance that accounts for trailing zeroes", function () {
       bank.deposit("10/01/2012", 1000.00);
       expect(bank.balance).toEqual("1000.00")
     });
+
+    it("has a balance that accounts for trailing zeroes", function () {
+      bank.deposit("10/01/2012", 100);
+      expect(bank.balance).toEqual("100.00")
+    });
+
 
     it("can increase the balance correctly", function () {
        bank.deposit("10/01/2012", 1000.00);
@@ -110,6 +116,45 @@ describe ("statement", function() {
     bank.statement() }).toMatch("date || credit || debit || balance\n14/01/2012 || || 500.00 || 2500.00\n13/01/2012 || 2000.00 || || 3000.00\n10/01/2012 || 1000.00 || || 1000.00")
   })
 
-})
+  it("generates a complete statement in the correct format (decimals maths)", function() {
+    bank.deposit("10/01/2012", 100.23);
+    bank.deposit("13/01/2012", 221.52);
+    bank.withdrawal("14/01/2012", 67.10);
+    expect(function () {
+      bank.statement()
+    }).toMatch("date || credit || debit || balance\n14/01/2012 || 67.10 || || 254.65\n13/01/2012 || 221.52 || || 321.75\n10/01/2012 || 100.23 || || 100.23")
+  })
 
+  })
+
+  describe ("validityCheck", function (){
+
+  it("checks whether a date is valid", function () {
+      expect(function () {
+        bank.deposit("This is not a date", 67.10)
+      }).toThrowError("Invalid date - please use DD/MM/YYYY format")
+    });
+   });
+
+   it("checks whether a date is valid", function () {
+       expect(function () {
+         bank.deposit("12325627", 67.10)
+       }).toThrowError("Invalid date - please use DD/MM/YYYY format")
+    });
+
+    it("checks whether an amount is a number", function () {
+        expect(function () {
+          bank.deposit("31/12/2020", "not a value")
+        }).toThrowError("Invalid amount - please provide a valid number with two decimnal places")
+     });
+
+     it("can accept hyphens for dates and will reformat", function() {
+       bank.deposit("10-01-2012", 1000.00);
+       expect(bank.account[0]).toEqual('10/01/2012 || 1000.00 || || 1000.00');
+     });
+
+     it("can accept periods for dates and reformat", function() {
+       bank.deposit("10.01.2012", 1000.00);
+       expect(bank.account[0]).toEqual('10/01/2012 || 1000.00 || || 1000.00');
+     });
 });

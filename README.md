@@ -27,9 +27,9 @@ date || credit || debit || balance
 
 - run ```npm install``` in the command line to install dependencies
 
-- run ```npm test``` to execute tests and generate test coverage details.
+- run ```npm test``` to execute tests and generate coverage details.
 
-- The app functions in the console. It has no HTML interface.
+- The app functions in the browser console. It has no HTML interface.
 
 ### Instructions
 
@@ -37,7 +37,7 @@ date || credit || debit || balance
 
 **deposits and withdrawal**
 
-To make a deposit or withdrawal, provide a date (as a string in DD/MM/YYYY format) and a numerical value with two decimal places. Do not include a currency symbol or currency code.
+To make a deposit or withdrawal, provide a date (as a string in DD/MM/YYYY or DD-MM-YYYY format) and a numerical value with two decimal places. Do not include a currency symbol or currency code.
 
 ```js
 bank.deposit("31/12/2020", 1000.00)
@@ -81,23 +81,29 @@ bank.statement
 
 **Refactoring deposit and withdrawal**
 
-Deposit and Withdrawal could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments then assigns a "credit" or "debit" status respectively.
+Deposit and Withdrawal could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments, then assigns a "credit" or "debit" status respectively.
 
 This could streamline the code base, reducing the number of functions.
 
-However, this solution retains "Deposit" and "Withdrawal" as separate functions with unique names and specific actions, thereby avoiding potential ambiguity among users that could arise a more-generic "Transaction" function.
+However, "Deposit" and "Withdrawal" are separate functions with unique names and specific actions. As a result, they reduce the potential for ambiguity among users that could arise from a more-generic "Transaction" function.
 
 **Decimals**
 
 Javascript's removal of trailing zeroes following a decimal raises a number of challenges. The zeroes can be retained using ```toFixed(2)```, converting the number into a string. However, this approach then prevents accurate addition and subtraction using that converted sum.
 
-The solution here is twofold:
-  - to update the balance, decimals are removed by multiplying values by 100 to preserve trailing zeroes.
-  - decimals are reinstated to add the balance as a string to the account.  
+The solution applied is to remove decimals  by multiplying all amounts by 100. This allows decimals to be reinstated for the statement in a way that accounts for trailing zeroes.  
 
 ### Edge cases
 
-- Bank does not check whether dates or monetary values are entered in the correct format.
+- This solution offers some limited checks and balances against input edge cases.
+
+It will:
+  - check if an amount provided is a number
+  - check whether the date provided has numerical values for days, months and years.
+
+The date checking process will allow users to input dates using any separator (including DD-MM-YYYY, DD.MM.YYYY ) and will standardise to DD/MM/YYYY 
+
+
 
 ### Tech stack
 
