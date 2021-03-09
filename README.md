@@ -34,18 +34,32 @@ date || credit || debit || balance
 
 ### Instructions
 
+1. bank = new Bank()
+
 **deposit("DD/MM/YYYY", XXXX.XX)**
 
-- to make a deposit provide a date in a string format and a monetary amount, including decimals but not including the currency.
+To make a deposit provide a date in a string format and a monetary amount, including decimals but not including the currency.
+
+```
+bank.deposit("31/12/2020", 1000.00)
+```
 
 **withdrawal("DD/MM/YYYY", XXXX.XX)**
 
-- to make a withdrawal provide a date in a string format and a monetary amount, including decimals but not including the currency.
+To make a withdrawal provide a date in a string format and a monetary amount, including decimals but not including the currency.
 
-**printStatement**
+```
+bank.withdrawal("31/12/2020", 1000.00)
+```
 
-- printStatement will print out a list of transactions in reverse chronological order.
 
+**statement**
+
+- statement will print out a list of transactions in reverse chronological order.
+
+```
+bank.statement
+```
 
 ### Structure and design
 
@@ -74,10 +88,12 @@ date || credit || debit || balance
 
 ### Edge cases
 
-- users could add the date or amount in an incorrect format or use values that are neither valid dates nor monetary amounts
+- Bank does not check whether dates or monetary values are entered in the correct format
 
 ### Tech stack
 
 - written in javascript
 
-- tests written in Jasmine, with coverage in Karma
+- testing  in Jasmine and Karma
+
+- linting in ESlint

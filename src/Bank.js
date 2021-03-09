@@ -2,7 +2,7 @@ class Bank {
   constructor () {
     this.balance = 0
     this.account = []
-    this.statement = ''
+    this.completeStatement = ''
     this.statementHeader = 'date || credit || debit || balance\n'
     this.newBalance = 0
   };
@@ -23,12 +23,13 @@ class Bank {
     return (this.newBalance / 100).toFixed(2)
   }
 
-  printStatement () {
+  statement () {
     let index = 0
     let ledger = []
     for (index = 0; index < this.account.length; index++) {
       ledger.push(this.account[index].join(' || ').replace('  ', ' '))
     };
-    this.statement = this.statementHeader.concat(ledger.join('\n'))
+    this.completeStatement = this.statementHeader.concat(ledger.join('\n'))
+    return this.completeStatement
   }
 }
