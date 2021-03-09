@@ -23,6 +23,6 @@ class Bank {
   }
 
   statement () {
-    return this.statementHeader.concat(this.account.join('\n'))
+    this.statementHeader.concat(this.account.join('\n'))
   }
 }
