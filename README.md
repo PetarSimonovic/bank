@@ -147,7 +147,7 @@ this.validDate = `${year}${month}${day}`
 
 - Dates must be entered as strings, while amounts are entered as numeric values. This is cumbersome and confusing from a user perspective.
 
-- There is no default date at present - the solution could assing the current system date as a default.
+- There is no default date at present - the solution could assign the current system date as a default.
 
 ### Tech stack
 
