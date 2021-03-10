@@ -48,83 +48,81 @@ bank.withdrawal("31/12/2020", 1000.00)
 
 **statement**
 
-Use statement to print out a list of transactions in reverse chronological order, formatted in line with the brief's requirements.
+Use statement to print out a list of transactions in reverse order, formatted in line with the brief's requirements.
 
 ```js
 bank.statement
 ```
 
-### Structure and design
+### Functionality
 
 1. **Account** array:  
     - Stores details of transaction activity as a string.
-    - Each transaction has a date, an amount and a balance. It's formatting indicates whether it is a deposit or withdrawal.
+    - Each transaction has a date, an amount and a balance. Transaction formatting indicates whether it is a deposit or withdrawal.
 
 2. **Balance** variable:
    - Stores the account holder's balance as a numerical value with two decimal places.
 
 3. **Withdrawal** function:
    - Accepts two arguments: date and amount
-   - Reduces Balance by amount
-   - Date, amount and balance are added to Account
+   - Updates account to reflect the transaction.
 
 4. **Deposit** function:
    - Accepts two arguments: date and amount
-   - Increases Balance by amount.
-   - date, amount and balance are added to Account
+   - Updates account to reflect the transaction.
 
 5. **Statement** function:
   - Generates and returns a statement in line with given format.
 
-### Considerations
+### Functions
 
+This solution attempts to keep functions DRY and adhere to SRP.
+
+  **deposit**
+  Updates the account for a credit transaction
+
+  **withdrawal**
+  Updates the account for a debit transaction
+
+  **balanceUpdate**
+  Updates balance for both credit and debit transactions, taking account of decimal places and trailing zeroes
+
+  **addDecimal**
+  Returns decimal to balance, accounting for trailing zeroes
+
+  **statement**
+  Prints a statement with a header
+
+  **checkValidity**
+  Uses checkDate and checkAmount to perform some basic edge case checks
+
+  **checkDate**
+  Checks the date; throws dateError if it detects an issue
+
+  **checkAmount**
+  Checks the amount is a number; throws amountError if it detects an issue
+
+  **dateError**
+  Raises an error if a date is not a date (according to checkDate)
+
+  **amountError**
+  Raises an error if an amount is not a number (according to checkAmount)
+
+### Considerations
 
 **Refactoring deposit and withdrawal**
 
-Deposit and Withdrawal could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments, then assigns a "credit" or "debit" status respectively.
+Deposit and Withdrawal functions could be combined into a single "Transaction" function that accepts both positive and negative amounts as arguments, then assigns a "credit" or "debit" status respectively.
 
 This could streamline the code base, reducing the number of functions.
 
-However, "Deposit" and "Withdrawal" are separate functions with unique names and specific actions. As a result, they reduce the potential for ambiguity among users that could arise from a more-generic "Transaction" function.
+However, "Deposit" and "Withdrawal" are specific actions with unique names. As a result, they reduce the potential for ambiguity among users that could arise from a more-generic "Transaction" function.
 
 **Decimals**
 
-Javascript's removal of trailing zeroes following a decimal raises a number of challenges. The zeroes can be retained using ```toFixed(2)```, converting the number into a string. However, this approach then prevents accurate addition and subtraction using that converted sum.
+Javascript's removal of trailing zeroes following a decimal raises a number of challenges in formatting the statement. The zeroes can be retained using ```toFixed(2)```, converting the number into a string. However, this approach then prevents accurate addition and subtraction using that converted sum.
 
-The solution applied is to remove decimals  by multiplying all amounts by 100. This allows decimals to be reinstated for the statement in a way that accounts for trailing zeroes.  
-
-### Functions
-
-**deposit**
-Updates the account for a credit transaction
-
-**withdrawal**
-Updates the account for a debit transaction
-
-**balanceUpdate**
-Updates the account for a debit transaction
-
-**addDecimal**
-Returns decimal to balance, accounting for trailing zeroes
-
-**statement**
-Prints a statement with a header
-
-**checkValidity**
-Uses checkDate and checkAmount to perform some basic edge case checks
-
-**checkDate**
-Checks and formats the date; throws dateError if it detects an issue
-
-**checkAmount**
-Checks the amount is a number; throws amountError if it detects an issue
-
-**dateError**
-Raises an error if a date is not a date (according to checkDate)
-
-
-**amountError**
-Raises an error if an amount is not a number (according to checkAmount)
+The solution applied here is to remove decimals by multiplying all amounts by 100. This allows decimals to be reinstated when printing the statement in a way that accounts for trailing zeroes yet allows the balance to be updated accurately.  
 
 
 ### Edge cases
@@ -137,19 +135,19 @@ It will:
 
 The date checking process will allow users to input dates using any separator (including DD-MM-YYYY, DD.MM.YYYY ) and will standardise to DD/MM/YYYY.
 
-To resolve this issue, the ```checkDate``` function could be repurposed to create a timestamp that could be attached to each entry, allowing the account array to be sorted.
+### Known issues
+
+- The statement cannot yet be sorted by date: it outputs debits and credits in the order they are made, not by the date the user provides.
+
+To resolve this issue, the ```checkDate``` function could be repurposed to create a timestamp that could be attached to each entry, allowing the account array to be sorted, eg:
 
 ```js
 this.validDate = `${year}${month}${day}`
 ```
 
-### Known issues
-
-- The statement cannot yet be sorted: it outputs debits and credits in the order they are made, not by date.
-
 - Dates must be entered as strings, while amounts are entered as numeric values. This is cumbersome and confusing from a user perspective.
 
-- There is no default date at present - the current date could be used as a default.
+- There is no default date at present - the solution could assing the current system date as a default.
 
 ### Tech stack
 
