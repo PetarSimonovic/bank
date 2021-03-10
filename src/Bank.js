@@ -18,7 +18,7 @@ class Bank {
     this.account.unshift(`${date} || || ${amount.toFixed(2)} || ${this.balance}`)
   }
 
-  balanceUpdate(date, amount) {
+  balanceUpdate (date, amount) {
     this.checkValidity(date, amount)
     this.newBalance = (this.balance * 100) + (amount * 100)
     this.balance = this.addDecimal()
@@ -38,27 +38,27 @@ class Bank {
     this.checkAmount(amount)
   }
 
-  checkDate(date) {
-    let day = date.substring(0,2)
-    let month = date.substring(3,5)
-    let year = date.substring(6,10)
+  checkDate (date) {
+    let day = date.substring(0, 2)
+    let month = date.substring(3, 5)
+    let year = date.substring(6, 10)
     if (isNaN(day) || isNaN(month) || isNaN(year) || date.length !== 10) {
-      this.dateError();
+      this.dateError()
     }
     this.validDate = `${day}/${month}/${year}`
   }
 
-  checkAmount(amount) {
+  checkAmount (amount) {
     if (isNaN(amount)) {
-      this.amountError();
+      this.amountError()
     }
   }
 
   amountError () {
-    throw new Error("Invalid amount - please provide a valid number with two decimnal places")
+    throw new Error('Invalid amount - please provide a valid number with two decimnal places')
   }
 
   dateError () {
-    throw new Error("Invalid date - please use DD/MM/YYYY format")
+    throw new Error('Invalid date - please use DD/MM/YYYY format')
   }
 }
