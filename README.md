@@ -145,7 +145,11 @@ this.validDate = `${year}${month}${day}`
 
 ### Known issues
 
-The statement cannot yet be sorted: it outputs debits and credits in the order they are made, not by date.
+- The statement cannot yet be sorted: it outputs debits and credits in the order they are made, not by date.
+
+- Dates must be entered as strings, while amounts are entered as numeric values. This is cumbersome and confusing from a user perspective.
+
+- There is no default date at present - the current date could be used as a default.
 
 ### Tech stack
 
