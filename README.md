@@ -93,6 +93,40 @@ Javascript's removal of trailing zeroes following a decimal raises a number of c
 
 The solution applied is to remove decimals  by multiplying all amounts by 100. This allows decimals to be reinstated for the statement in a way that accounts for trailing zeroes.  
 
+### Functions
+
+**deposit**
+Updates the account for a credit transaction
+
+**withdrawal**
+Updates the account for a debit transaction
+
+**balanceUpdate**
+Updates the account for a debit transaction
+
+**addDecimal**
+Returns decimal to balance, accounting for trailing zeroes
+
+**statement**
+Prints a statement with a header
+
+**checkValidity**
+Uses checkDate and checkAmount to perform some basic edge case checks
+
+**checkDate**
+Checks and formats the date; throws dateError if it detects an issue
+
+**checkAmount**
+Checks the amount is a number; throws amountError if it detects an issue
+
+**dateError**
+Raises an error if a date is not a date (according to checkDate)
+
+
+**amountError**
+Raises an error if an amount is not a number (according to checkAmount)
+
+
 ### Edge cases
 
 - This solution offers some limited checks and balances against input edge cases.
@@ -101,9 +135,17 @@ It will:
   - check if an amount provided is a number
   - check whether the date provided has numerical values for days, months and years.
 
-The date checking process will allow users to input dates using any separator (including DD-MM-YYYY, DD.MM.YYYY ) and will standardise to DD/MM/YYYY 
+The date checking process will allow users to input dates using any separator (including DD-MM-YYYY, DD.MM.YYYY ) and will standardise to DD/MM/YYYY.
 
+To resolve this issue, the ```checkDate``` function could be repurposed to create a timestamp that could be attached to each entry, allowing the account array to be sorted.
 
+```js
+this.validDate = `${year}${month}${day}`
+```
+
+### Known issues
+
+The statement cannot yet be sorted: it outputs debits and credits in the order they are made, not by date.
 
 ### Tech stack
 

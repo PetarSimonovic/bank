@@ -9,17 +9,19 @@ class Bank {
   };
 
   deposit (date, amount) {
-    this.checkValidity(date, amount)
-    this.newBalance = (this.balance * 100) + (amount * 100)
-    this.balance = this.addDecimal()
+    this.balanceUpdate(date, amount)
     this.account.unshift(`${this.validDate} || ${amount.toFixed(2)} || || ${this.balance}`)
   };
 
   withdrawal (date, amount) {
-    this.checkValidity(date, amount)
-    this.newBalance = (this.balance * 100) - (amount * 100)
-    this.balance = this.addDecimal()
+    this.balanceUpdate(date, -Math.abs(amount))
     this.account.unshift(`${date} || || ${amount.toFixed(2)} || ${this.balance}`)
+  }
+
+  balanceUpdate(date, amount) {
+    this.checkValidity(date, amount)
+    this.newBalance = (this.balance * 100) + (amount * 100)
+    this.balance = this.addDecimal()
   }
 
   addDecimal () {
