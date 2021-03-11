@@ -2,9 +2,7 @@ class Bank {
   constructor () {
     this.balance = 0
     this.account = []
-    this.statementHeader = 'date || credit || debit || balance\n'
     this.newBalance = 0
-    this.newStatement = ''
     this.validDate = 0
   };
 
@@ -24,13 +22,14 @@ class Bank {
     this.balance = this.addDecimal()
   }
 
-  addDecimal () {
-    return (this.newBalance / 100).toFixed(2)
+  statement () {
+    let newStatement = new Statement(this.account)
+    console.log(newStatement)
+    newStatement.printStatement();
   }
 
-  statement () {
-    this.newStatement = this.statementHeader.concat(this.account.join('\n'))
-    return this.newStatement
+  addDecimal () {
+    return (this.newBalance / 100).toFixed(2)
   }
 
   checkValidity (date, amount) {
@@ -61,4 +60,18 @@ class Bank {
   dateError () {
     throw new Error('Invalid date - please use DD/MM/YYYY format')
   }
+}
+
+class Statement {
+  constructor (account) {
+    this.statementHeader = 'date || credit || debit || balance\n'
+    this.account = account
+  }
+
+
+  printStatement () {
+    this.newStatement = this.statementHeader.concat(this.account.join('\n'))
+    return this.newStatement
+  }
+
 }
